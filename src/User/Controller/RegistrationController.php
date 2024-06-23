@@ -209,7 +209,7 @@ class RegistrationController extends Controller
      */
     public function actionConfirm($id, $code)
     {
-        /** @var User $user */
+        /** @var ?User $user */
         $user = $this->userQuery->whereId($id)->one();
 
         if ($user === null || $this->module->enableEmailConfirmation === false) {
@@ -258,7 +258,7 @@ class RegistrationController extends Controller
         $this->make(AjaxRequestModelValidator::class, [$form])->validate();
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            /** @var User $user */
+            /** @var ?User $user */
             $user = $this->userQuery->whereEmail($form->email)->one();
             $success = true;
             if ($user !== null) {
